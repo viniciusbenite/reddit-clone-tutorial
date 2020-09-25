@@ -1,4 +1,4 @@
-package org.example.redditclone.model;
+package org.example.redditclone.models;
 
 import java.time.Instant;
 
@@ -50,6 +50,6 @@ public class Post {
     private Instant createdDate;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "subRedditId", referencedColumnName = "subRedditId")
     private SubReddit subReddit;
 }
