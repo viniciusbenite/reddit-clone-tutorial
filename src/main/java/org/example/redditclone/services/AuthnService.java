@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import org.example.redditclone.data_transfer_objects.AuthnResponse;
+import org.example.redditclone.data_transfer_objects.UserSignIn;
 import org.example.redditclone.data_transfer_objects.UserSignup;
 import org.example.redditclone.exceptions.UserNotFoundException;
 import org.example.redditclone.exceptions.VerificationTokenException;
@@ -14,9 +16,14 @@ import org.example.redditclone.models.User;
 import org.example.redditclone.models.VerificationToken;
 import org.example.redditclone.repositories.UserRepository;
 import org.example.redditclone.repositories.VerificationTokenRepository;
+
 import static org.example.redditclone.static_vars.Paths.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +39,10 @@ public class AuthnService {
     VerificationTokenRepository verificationTokenRepository;
     @Autowired
     EmailService emailService;
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JwtProvider jwtProvider;
 
     @Transactional
     public void signUp(UserSignup userSignup) {
@@ -86,5 +97,17 @@ public class AuthnService {
         userRepository.save(user);
 
     }
+
+	public AuthnResponse signIn(UserSignIn userSignIn) {
+        /**
+         * Handles the user signin
+         */
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userSignIn.getUserName(),
+        userSignIn.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return new AuthnResponse(jwtProvider.generateToken(authentication), userSignIn.getUserName());
+        
+	}
     
 }

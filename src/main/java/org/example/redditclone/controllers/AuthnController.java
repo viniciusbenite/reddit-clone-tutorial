@@ -16,6 +16,8 @@ import io.swagger.annotations.ApiOperation;
 
 import static org.example.redditclone.static_vars.Paths.*;
 
+import org.example.redditclone.data_transfer_objects.AuthnResponse;
+import org.example.redditclone.data_transfer_objects.UserSignIn;
 import org.example.redditclone.data_transfer_objects.UserSignup;
 import org.example.redditclone.services.AuthnService;;
 
@@ -40,5 +42,11 @@ public class AuthnController {
     public ResponseEntity<String> validateUser(@PathVariable String token) {
         authnService.verifyAccount(token);
         return new ResponseEntity<String>("User verification successfull", HttpStatus.OK);
+    }
+
+    @ApiOperation("Authenticate the user")
+    @PostMapping(value = SIGNIN_URL)
+    public AuthnResponse authnUser(@RequestBody UserSignIn userSignIn) {
+        return authnService.signIn(userSignIn);
     }
 }
