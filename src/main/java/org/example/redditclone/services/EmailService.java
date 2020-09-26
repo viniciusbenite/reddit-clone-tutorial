@@ -7,6 +7,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +24,12 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
+    @Async
     public void sendEmail(NotificationEmail notificationEmail) {
+        /**
+         * After user signup, an email will be sent for account activation.
+         * Expensivev operation -> async!
+         */
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom("reddit-clone@email.com");
