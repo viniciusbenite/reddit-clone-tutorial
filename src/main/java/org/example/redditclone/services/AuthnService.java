@@ -38,7 +38,7 @@ public class AuthnService {
          * Than creates a token for email user validation and send it to the user
          */
         User user = new User();
-        user.setUsername(userSignup.getName());
+        user.setUsername(userSignup.getUserName());
         user.setEmail(userSignup.getEmail());
         user.setPassword(passwordEncoder.encode(userSignup.getPassword()));
         user.setCreatedOn(Instant.now());
