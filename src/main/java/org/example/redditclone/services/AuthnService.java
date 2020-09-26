@@ -1,11 +1,14 @@
 package org.example.redditclone.services;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
 
 import org.example.redditclone.data_transfer_objects.UserSignup;
+import org.example.redditclone.exceptions.UserNotFoundException;
+import org.example.redditclone.exceptions.VerificationTokenException;
 import org.example.redditclone.models.NotificationEmail;
 import org.example.redditclone.models.User;
 import org.example.redditclone.models.VerificationToken;
@@ -59,6 +62,29 @@ public class AuthnService {
         verificationTokenRepository.save(verificationToken);
 
         return token;
+    }
+
+	public void verifyAccount(String token) {
+        /**
+         * User verification by email token
+         */
+        Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
+        verificationToken.orElseThrow(() -> new VerificationTokenException("Invalid user token"));
+        // If token is valid ...
+        enableUser(verificationToken.get());
+
+	}
+
+    private void enableUser(VerificationToken verificationToken) {
+        /**
+         * Search for the user in database and enable it
+         */
+        Long userId = verificationToken.getUser().getUserId();
+        User user =userRepository.findById(userId)
+            .orElseThrow(() -> new UserNotFoundException(String.format("User %s not found", verificationToken.getUser().getUsername())));
+        user.setEnabled(true);
+        userRepository.save(user);
+
     }
     
 }

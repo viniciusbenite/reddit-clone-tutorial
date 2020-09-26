@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +33,12 @@ public class AuthnController {
     public ResponseEntity<String> signup(@RequestBody UserSignup userSignup) {
         authnService.signUp(userSignup);
         return new ResponseEntity<String>(String.format("User %s registration OK", userSignup.getUserName()), HttpStatus.OK);
+    }
+
+    @ApiOperation("Validate user with token")
+    @GetMapping(value = TOKEN_VERIFICATION_URL + "{token}")
+    public ResponseEntity<String> validateUser(@PathVariable String token) {
+        authnService.verifyAccount(token);
+        return new ResponseEntity<String>("User verification successfull", HttpStatus.OK);
     }
 }
