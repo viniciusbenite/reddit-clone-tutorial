@@ -6,6 +6,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
+import static io.jsonwebtoken.Jwts.parser;
 
 @Service
 public class JwtProvider {
@@ -44,6 +46,7 @@ public class JwtProvider {
 
     public String generateToken(Authentication authentication) {
         /**
+         * Import static io.jsonwebtoken.Jwts.parser;
          * Generate an authn token for user signin User is not our model. 
          * User is from Spring core userdetails!
          */
@@ -59,6 +62,32 @@ public class JwtProvider {
             return (PrivateKey) keyStore.getKey("springblog", "secret".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
             throw new RedditCloneKeyStoreException("Something went wrog ... too bad!");
+        }
+    }
+
+    public boolean validateToken(String jwt) {
+        /**This method uses the JwtParser class to validate our JWT.
+         * Validate the token using the public key 
+         */
+        parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
+        return true;
+    }
+
+    public String getUserNameFromJwt(String token) {
+        /**
+         * Retrieve the username from the token by calling the getUsernameFromJWT() method.
+         */
+        return parser().setSigningKey(getPublicKey())
+                                .parseClaimsJws(token)
+                                .getBody()
+                                .getSubject();
+    }
+
+    private PublicKey getPublicKey() {
+        try {
+            return keyStore.getCertificate("springblog").getPublicKey();
+        } catch (KeyStoreException e) {
+            throw new RedditCloneKeyStoreException("Something went wrog while retrieving the public key... too bad!");
         }
     }
 }
