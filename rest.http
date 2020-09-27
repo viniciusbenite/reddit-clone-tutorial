@@ -1,0 +1,28 @@
+GET http://localhost:8080 HTTP/1.1
+
+###
+POST http://localhost:8080/api/authn/signup/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "userName": "Vinissao",
+    "email": "vinissu@gmail.com",
+    "password": "paoske"
+}
+
+###
+POST http://localhost:8080/api/authn/signin/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "userName": "Some user 3",
+    "password": "SomeWierdoPass123456"
+}
+
+###
+GET http://localhost:8080/api/authn/account-verification/a651fd8f-31a7-4c45-9c8f-f1a544e21d11 HTTP/1.1
+# Some user 3 user validation
+
+###
+GET http://localhost:8080/api/authn/account-verification/5c76e85d-13c8-4fc8-a99e-94cedd8b2c25 HTTP/1.1
+# Vinissao user validation

@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
             .authorizeRequests()
-            .antMatchers("/*", "/api/*", "/api/authn/*", "/api/authn/signup/*", "/api/authn/account-verification/*", "/api/authn/signin/*")
+            .antMatchers("/*", "/api/*", "/api/authn/*", "/api/authn/signup/*", "/api/authn/account-verification/*", "/api/authn/signin/")
             .permitAll()
             .anyRequest()
             .authenticated();
@@ -54,7 +54,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
      */
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
-    public AuthenticationManager authenticationManager() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        // authenticationManagerBean NOT authenticationManager
         return super.authenticationManagerBean();
     }
 

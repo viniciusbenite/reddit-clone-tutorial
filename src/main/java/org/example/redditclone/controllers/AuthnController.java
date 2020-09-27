@@ -37,6 +37,7 @@ public class AuthnController {
         return new ResponseEntity<String>(String.format("User %s registration OK", userSignup.getUserName()), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins="*")
     @ApiOperation("Validate user with token")
     @GetMapping(value = TOKEN_VERIFICATION_URL + "{token}")
     public ResponseEntity<String> validateUser(@PathVariable String token) {
@@ -44,6 +45,7 @@ public class AuthnController {
         return new ResponseEntity<String>("User verification successfull", HttpStatus.OK);
     }
 
+    @CrossOrigin(origins="*")
     @ApiOperation("Authenticate the user")
     @PostMapping(value = SIGNIN_URL)
     public AuthnResponse authnUser(@RequestBody UserSignIn userSignIn) {

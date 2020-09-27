@@ -26,6 +26,7 @@ public class JwtProvider {
 
     @PostConstruct
     public void init() {
+        // TODO: REFACTOR THIS CATCHS
         try {
             keyStore = KeyStore.getInstance("JKS");
             InputStream resourceAsStream = getClass().getResourceAsStream("/springblog.jks");
