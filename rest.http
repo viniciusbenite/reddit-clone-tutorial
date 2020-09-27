@@ -1,0 +1,55 @@
+GET http://localhost:8080 HTTP/1.1
+
+###
+POST http://localhost:8080/api/authn/signup/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "userName": "Vinissao",
+    "email": "vinissu@gmail.com",
+    "password": "paoske"
+}
+
+###
+POST http://localhost:8080/api/authn/signin/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "userName": "Some user 3",
+    "password": "SomeWierdoPass123456"
+}
+
+###
+GET http://localhost:8080/api/authn/account-verification/a651fd8f-31a7-4c45-9c8f-f1a544e21d11 HTTP/1.1
+# Some user 3 user validation
+
+###
+GET http://localhost:8080/api/authn/account-verification/5c76e85d-13c8-4fc8-a99e-94cedd8b2c25 HTTP/1.1
+# Vinissao user validation
+
+###
+POST http://localhost:8080/api/authn/signin/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "userName": "Vinissao",
+    "password": "paoske"
+}
+
+###
+POST http://localhost:8080/api/subreddit/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJWaW5pc3NhbyJ9.XdUBVYZIsuo5cE9ezHT0hmiZvSAcbPQiUEQ-1snnk4YRg61Z-qFKnqG6x8T3qYfBIYwCzMWACOUMHLOgJmUIdCaKg6PC0ynBsN898qhfZ2Gp2hnoH__IXgTwE8uamg7xN_LSw3zfmdFQP9WfplkG_RIMt1pZdNujmXERaareuvfz8M1j8VMqjsGq-YJs-sDVHi-fpxQtt0SAlcBp6w5ueef7gl0qPM7VzjFSJuj1SpOarohwWJfpYTgoCJxCxivO-UjhZCXYBZM5agUM4vwPKaIZmpEcjLmUYulVPA8zZcW4ukw21b0WZqWk2J_vCOWky7CHfVwdkMX2v9KLKhDH5w"
+
+{
+    "name": "Second SubReddit Uhull",
+    "description": "This is my second subreddit!!"
+}
+
+###
+GET http://localhost:8080/api/subreddit/5 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJWaW5pc3NhbyJ9.XdUBVYZIsuo5cE9ezHT0hmiZvSAcbPQiUEQ-1snnk4YRg61Z-qFKnqG6x8T3qYfBIYwCzMWACOUMHLOgJmUIdCaKg6PC0ynBsN898qhfZ2Gp2hnoH__IXgTwE8uamg7xN_LSw3zfmdFQP9WfplkG_RIMt1pZdNujmXERaareuvfz8M1j8VMqjsGq-YJs-sDVHi-fpxQtt0SAlcBp6w5ueef7gl0qPM7VzjFSJuj1SpOarohwWJfpYTgoCJxCxivO-UjhZCXYBZM5agUM4vwPKaIZmpEcjLmUYulVPA8zZcW4ukw21b0WZqWk2J_vCOWky7CHfVwdkMX2v9KLKhDH5w"
+
+###
+GET http://localhost:8080/api/subreddit/2 HTTP/1.1

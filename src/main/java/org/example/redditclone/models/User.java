@@ -1,4 +1,4 @@
-package org.example.redditclone.model;
+package org.example.redditclone.models;
 
 import java.time.Instant;
 
@@ -35,7 +35,7 @@ public class User {
     @Email
     @NotEmpty(message = "Email is required")
     private String email;
-    
+
     private Instant createdOn;
-    private boolean enabled;
+    private boolean enabled; // Verification by email 
 }

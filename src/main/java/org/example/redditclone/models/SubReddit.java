@@ -1,4 +1,4 @@
-package org.example.redditclone.model;
+package org.example.redditclone.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +10,6 @@ import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.List;
 
-import static javax.persistence.FetchType.LAZY;
-import static javax.persistence.GenerationType.IDENTITY;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,8 +18,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class SubReddit {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long subRedditId;
 
     @NotBlank(message = "Community name is required")
     private String name;
@@ -30,12 +27,12 @@ public class SubReddit {
     @NotBlank(message = "Description is required")
     private String description;
 
-    @OneToMany(fetch = LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Post> posts;
 
     private Instant createdDate;
-    
-    @ManyToOne(fetch = LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
 }
