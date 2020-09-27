@@ -29,7 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Autowired
     private JwtAuthnFilter jwtAuthnFilter;
 
-    // Disable CSRF protection
+    /**
+     * Cors and CSRF
+     */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and()
@@ -56,14 +58,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         httpSecurity.addFilterBefore(jwtAuthnFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    // Authn manager
+    /**
+     * Authentication manager
+     * @param authenticationManagerBuilder
+     * @throws Exception
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsService)
             .passwordEncoder(passwordEncoder());
     }
 
-    // Password encoder interface from Spring
+    /**
+     * Password encoder interface from Spring
+     * @return BCryptPasswordEncoder obj -> encrypted password
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
