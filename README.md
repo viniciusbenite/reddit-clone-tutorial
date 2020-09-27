@@ -3,8 +3,6 @@ Java + Spring MVC + Spring security + JPA mySQL + Angular tutorial to create a R
 
 This is a tutorial to build a fullstack webapp Reddit clone using Java Spring and Angular.
 
-Follow the tutorial [here](https://programmingtechie.com/2019/09/30/build-a-full-stack-reddit-clone-with-spring-boot-and-angular-part-1/)!
-
 ## TODO's:
 
 :heavy_check_mark: Create a new user;
@@ -25,4 +23,8 @@ Follow the tutorial [here](https://programmingtechie.com/2019/09/30/build-a-full
 
 :clock9: Upvote or downvote comments;
 
-:clock9: Token refreshing.
+:clock9: Token refreshing;
+
+:clock9: API documentation with Swagger.
+
+Follow the tutorial [here](https://programmingtechie.com/2019/09/30/build-a-full-stack-reddit-clone-with-spring-boot-and-angular-part-1/)!
