@@ -43,7 +43,7 @@ public class SubredditController {
     
     /**
      * 
-     * @return all subreddits
+     * @return Response Entity -> all subreddits
      */
     @ApiOperation("Retrive info about all subreddits")
     @GetMapping
@@ -55,7 +55,7 @@ public class SubredditController {
     /**
      * 
      * @param Subreddit id
-     * @return Single subreddit
+     * @return Response Entity -> Single subreddit
      */
     @ApiOperation("Retrive info about all subreddits")
     @GetMapping(path = "{id}")
