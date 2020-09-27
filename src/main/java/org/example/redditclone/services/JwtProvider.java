@@ -44,20 +44,28 @@ public class JwtProvider {
         }
     }
 
+    /**
+     * Import static io.jsonwebtoken.Jwts.parser; Generate an authn token for user
+     * signin User is not our model. User is from Spring core userdetails!
+     * 
+     * @param Authentication object
+     * @return
+     */
     public String generateToken(Authentication authentication) {
         /**
-         * Import static io.jsonwebtoken.Jwts.parser;
-         * Generate an authn token for user signin User is not our model. 
-         * User is from Spring core userdetails!
+         * Import static io.jsonwebtoken.Jwts.parser; Generate an authn token for user
+         * signin User is not our model. User is from Spring core userdetails!
          */
         User principal = (User) authentication.getPrincipal();
         return Jwts.builder().setSubject(principal.getUsername()).signWith(getPrivateKey()).compact();
     }
 
+    /**
+     * Asymetric keys.. Get client private key
+     * 
+     * @return PrivateKey object
+     */
     private PrivateKey getPrivateKey() {
-        /**
-         * Asymetric keys.. Get client private key
-         */
         try {
             return (PrivateKey) keyStore.getKey("springblog", "secret".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
@@ -65,24 +73,33 @@ public class JwtProvider {
         }
     }
 
+    /**
+     * This method uses the JwtParser class to validate our JWT. Validate the token
+     * using the public key
+     * 
+     * @param String jwt
+     * @return boolean
+     */
     public boolean validateToken(String jwt) {
-        /**This method uses the JwtParser class to validate our JWT.
-         * Validate the token using the public key 
-         */
         parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
         return true;
     }
 
+    /**
+     * Retrieve the username from the token by calling the getUsernameFromJWT()
+     * method.
+     * @param String token
+     * @return String subject
+     */
     public String getUserNameFromJwt(String token) {
-        /**
-         * Retrieve the username from the token by calling the getUsernameFromJWT() method.
-         */
-        return parser().setSigningKey(getPublicKey())
-                                .parseClaimsJws(token)
-                                .getBody()
-                                .getSubject();
+        return parser().setSigningKey(getPublicKey()).parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Get public key
+     * 
+     * @return Publick key (certificate) object
+     */
     private PublicKey getPublicKey() {
         try {
             return keyStore.getCertificate("springblog").getPublicKey();

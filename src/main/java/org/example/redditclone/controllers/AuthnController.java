@@ -29,6 +29,11 @@ public class AuthnController {
     @Autowired
     AuthnService authnService;
     
+    /**
+     * POST call to create a new user and send verification email
+     * @param userSignup
+     * @return Response Entiti -> new user
+     */
     @CrossOrigin(origins="*")
     @ApiOperation("Register a new user")
     @PostMapping(value = SIGNUP_URL)
@@ -37,6 +42,11 @@ public class AuthnController {
         return new ResponseEntity<String>(String.format("User %s registration OK", userSignup.getUserName()), HttpStatus.OK);
     }
 
+    /**
+     * GET call to verify user token and enable user
+     * @param token
+     * @return Response Entiti -> user enabled
+     */
     @CrossOrigin(origins="*")
     @ApiOperation("Validate user with token")
     @GetMapping(value = TOKEN_VERIFICATION_URL + "{token}")
@@ -45,6 +55,11 @@ public class AuthnController {
         return new ResponseEntity<String>("User verification successfull", HttpStatus.OK);
     }
 
+    /**
+     * Endpoint to manage user signin and generation of a token to handle authorization.
+     * @param userSignIn
+     * @return AuthnResponse -> user signed in
+     */
     @CrossOrigin(origins="*")
     @ApiOperation("Authenticate the user")
     @PostMapping(value = SIGNIN_URL)

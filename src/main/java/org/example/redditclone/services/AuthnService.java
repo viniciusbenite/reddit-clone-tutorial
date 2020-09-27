@@ -44,13 +44,14 @@ public class AuthnService {
     @Autowired
     JwtProvider jwtProvider;
 
+    /**
+     * This method handles user registration. Store his name, email, encrypted
+     * password and registration time. Than creates a token for email user
+     * validation and send it to the user
+     * @param userSignup
+     */
     @Transactional
     public void signUp(UserSignup userSignup) {
-        /**
-         * This method handles user registration.
-         * Store his name, email, encrypted password and registration time.
-         * Than creates a token for email user validation and send it to the user
-         */
         User user = new User();
         user.setUsername(userSignup.getUserName());
         user.setEmail(userSignup.getEmail());
@@ -59,13 +60,17 @@ public class AuthnService {
         user.setEnabled(false);
         userRepository.save(user);
         String token = verificationToken(user);
-        emailService.sendEmail(new NotificationEmail("Reddit Close", user.getEmail(), EMAIL_SUBJECT, (EMAIL_BODY + token)));
+        emailService
+                .sendEmail(new NotificationEmail("Reddit Close", user.getEmail(), EMAIL_SUBJECT, (EMAIL_BODY + token)));
     }
 
+    /**
+     * Generate an user token upon registration for user activation propouses.
+     * 
+     * @param User
+     * @return verification token as a string
+     */
     private String verificationToken(User user) {
-        /**
-         * Generate an user token upon registration for user activation propouses.
-         */
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);
@@ -75,39 +80,42 @@ public class AuthnService {
         return token;
     }
 
-	public void verifyAccount(String token) {
-        /**
-         * User verification by email token
-         */
+    /**
+     * User verification by email token
+     * 
+     * @param token
+     */
+    public void verifyAccount(String token) {
         Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
         verificationToken.orElseThrow(() -> new VerificationTokenException("Invalid user token"));
         // If token is valid ...
         enableUser(verificationToken.get());
-
-	}
-
-    private void enableUser(VerificationToken verificationToken) {
-        /**
-         * Search for the user in database and enable it
-         */
-        Long userId = verificationToken.getUser().getUserId();
-        User user =userRepository.findById(userId)
-            .orElseThrow(() -> new UserNotFoundException(String.format("User %s not found", verificationToken.getUser().getUsername())));
-        user.setEnabled(true);
-        userRepository.save(user);
-
     }
 
-	public AuthnResponse signIn(UserSignIn userSignIn) {
-        /**
-         * Handles the user signin
-         */
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userSignIn.getUserName(),
-        userSignIn.getPassword()));
+    /**
+     * Search for the user in database and enable it
+     * 
+     * @param verificationToken
+     */
+    private void enableUser(VerificationToken verificationToken) {
+        Long userId = verificationToken.getUser().getUserId();
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(
+                String.format("User %s not found", verificationToken.getUser().getUsername())));
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
+
+    /**
+     * Handles the user signin
+     * 
+     * @param userSignIn DTO
+     * @return Authentication response object
+     */
+    public AuthnResponse signIn(UserSignIn userSignIn) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(userSignIn.getUserName(), userSignIn.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return new AuthnResponse(jwtProvider.generateToken(authentication), userSignIn.getUserName());
-        
-	}
-    
+    }
 }

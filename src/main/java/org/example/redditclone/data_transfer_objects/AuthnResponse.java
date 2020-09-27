@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthnResponse {
+    /**
+     * DTO class for authentication response.
+     */
     
     private String token;
     private String userName;

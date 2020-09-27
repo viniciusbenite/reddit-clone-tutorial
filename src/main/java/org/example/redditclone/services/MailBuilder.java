@@ -9,18 +9,18 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class MailBuilder {
-
-    /*
-     * Create an e-mail for user verification/validationb on signup
-     */
+    
     private final TemplateEngine templateEngine;
 
+    /**
+     * Create an e-mail for user verification/validationb on signup.
+     * @param String msg
+     * @return thymeleaf email template
+     */
     public String build(String msg) {
         Context ctx = new Context();
         ctx.setVariable("message", msg);
 
         return templateEngine.process("mailTemplate", ctx);
     }
-
-    
 }

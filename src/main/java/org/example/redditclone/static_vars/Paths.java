@@ -2,6 +2,10 @@ package org.example.redditclone.static_vars;
 
 public final class Paths {
 
+    /**
+     * Static values
+     */
+
     public static final String AUTHN_URL = "/api/authn";
     public static final String SIGNUP_URL = "/signup/";
     public static final String SIGNIN_URL = "/signin/";

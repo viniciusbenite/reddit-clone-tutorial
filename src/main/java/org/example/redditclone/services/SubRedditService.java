@@ -50,6 +50,11 @@ public class SubRedditService {
         .collect(Collectors.toList());
     }
 
+    /**
+     * 
+     * @param Long id
+     * @return Sub reddit DTO
+     */
     @Transactional(readOnly = true)
     public SubRedditData getSingleSubReddit(long id) {
         SubReddit sr = subRedditRepository.findById(id)

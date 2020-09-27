@@ -26,20 +26,19 @@ public class JwtAuthnFilter extends OncePerRequestFilter {
     @Autowired
     UserDetailsService userDetailsService;
 
+    /**
+     * Retrieve the user using the UserDetailsService class and store the user
+     * inside the SecurityContext
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException, UsernameNotFoundException {
         String jwt = getJwtFromRequest(request);
-
-        /**
-         * Retrieve the user using the UserDetailsService class 
-         * and store the user inside the SecurityContext
-         */
         if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
             String userName = jwtProvider.getUserNameFromJwt(jwt);
             UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
+                    null, userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -47,11 +46,14 @@ public class JwtAuthnFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Method which retrieves the Bearer Token (ie. JWT) from the HttpServletRequest
+     * object we are passing as input
+     * 
+     * @param HttpServletRequest object
+     * @return String bearer token
+     */
     private String getJwtFromRequest(HttpServletRequest request) {
-        /**
-         * Method which retrieves the Bearer Token (ie. JWT) 
-         * from the HttpServletRequest object we are passing as input 
-         */
         String bearerToken = request.getHeader("Authorization");
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
@@ -59,5 +61,5 @@ public class JwtAuthnFilter extends OncePerRequestFilter {
         }
         return bearerToken;
     }
-    
+
 }

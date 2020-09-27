@@ -3,7 +3,7 @@ package org.example.redditclone.exceptions;
 public class VerificationTokenException extends RuntimeException {
 
     /**
-     * Exception for token not found error
+     * Exception for token verification errors
      */
     private static final long serialVersionUID = 1L;
 
@@ -14,5 +14,5 @@ public class VerificationTokenException extends RuntimeException {
     public VerificationTokenException(String message) {
         super(message);
     }
-    
+
 }

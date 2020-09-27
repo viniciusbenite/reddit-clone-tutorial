@@ -24,12 +24,13 @@ public class EmailService {
 
     private final JavaMailSender mailSender;
 
+    /**
+     * After user signup, an email will be sent for account activation.
+     * Expensivev operation -> async!
+     * @param Notification Email object
+     */
     @Async
     public void sendEmail(NotificationEmail notificationEmail) {
-        /**
-         * After user signup, an email will be sent for account activation.
-         * Expensivev operation -> async!
-         */
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom("reddit-clone@email.com");
