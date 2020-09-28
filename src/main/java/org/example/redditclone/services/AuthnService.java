@@ -4,8 +4,6 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.transaction.Transactional;
-
 import org.example.redditclone.data_transfer_objects.AuthnResponse;
 import org.example.redditclone.data_transfer_objects.UserSignIn;
 import org.example.redditclone.data_transfer_objects.UserSignup;
@@ -26,8 +24,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthnService {
 
     // TODO: Field injection .... refactor this
@@ -117,5 +122,13 @@ public class AuthnService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return new AuthnResponse(jwtProvider.generateToken(authentication), userSignIn.getUserName());
+    }
+
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
+                getContext().getAuthentication().getPrincipal();
+        return userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
     }
 }
