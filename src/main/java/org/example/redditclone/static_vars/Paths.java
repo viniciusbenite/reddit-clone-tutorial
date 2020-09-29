@@ -13,6 +13,7 @@ public final class Paths {
 
     public static final String SUBREDDIT_URL = "/api/subreddit/";
     public static final String POST_URL = "/api/post/";
+    public static final String COMMENTS_URL = "/api/comments/";
 
     public static final String VALIDATION_URL = "http://localhost:8080/api/authn/account-verification/";
     public static final String EMAIL_BODY = "Click the link to validade your account:" + VALIDATION_URL;

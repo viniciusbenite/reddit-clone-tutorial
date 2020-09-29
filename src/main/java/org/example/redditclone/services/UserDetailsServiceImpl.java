@@ -31,10 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return new org.springframework.security
                 .core.userdetails.User(user.getUsername(), user.getPassword(),
-                user.isEnabled(), true, true, true, getAuthorities("USER"));
+                user.isEnabled(), true, true, true, getAuthorities());
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(String role) {
-        return singletonList(new SimpleGrantedAuthority(role));
+    private Collection<? extends GrantedAuthority> getAuthorities() {
+        return singletonList(new SimpleGrantedAuthority("USER"));
     }
 }

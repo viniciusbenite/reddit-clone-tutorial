@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NotificationEmail {
     
-    private String from;
+    public NotificationEmail(String string, String email, String message) {
+	}
+	private String from;
     private String to;
     private String subject;
     private String emailBody;
