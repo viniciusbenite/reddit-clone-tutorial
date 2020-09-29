@@ -17,7 +17,6 @@ import org.example.redditclone.repositories.VerificationTokenRepository;
 
 import static org.example.redditclone.static_vars.Paths.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,26 +27,20 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class AuthnService {
-
-    // TODO: Field injection .... refactor this
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    VerificationTokenRepository verificationTokenRepository;
-    @Autowired
-    EmailService emailService;
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
-    JwtProvider jwtProvider;
+    
+    /**
+     * REFACTOR: AVOID FIELD INJECTION WITH REFLECTION
+     */
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final VerificationTokenRepository verificationTokenRepository;
+    private final EmailService emailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
 
     /**
      * This method handles user registration. Store his name, email, encrypted

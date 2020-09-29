@@ -14,7 +14,6 @@ import org.example.redditclone.models.User;
 import org.example.redditclone.repositories.PostRepository;
 import org.example.redditclone.repositories.SubRedditRepository;
 import org.example.redditclone.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,16 +26,11 @@ import static java.util.stream.Collectors.toList;
 @AllArgsConstructor
 public class PostService {
 
-    @Autowired
-    private SubRedditRepository subRedditRepository;
-    @Autowired
-    private AuthnService authnService;
-    @Autowired
-    private PostRepository postRepository;
-    @Autowired
-    private PostMapper postMapper;
-    @Autowired
-    private UserRepository userRepository;
+    private final  SubRedditRepository subRedditRepository;
+    private final  AuthnService authnService;
+    private final  PostRepository postRepository;
+    private final  PostMapper postMapper;
+    private final  UserRepository userRepository;
 
     /**
      * 

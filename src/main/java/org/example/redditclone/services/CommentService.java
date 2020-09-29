@@ -14,7 +14,6 @@ import org.example.redditclone.repositories.CommentRepository;
 import org.example.redditclone.repositories.PostRepository;
 import org.example.redditclone.repositories.UserRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,20 +25,13 @@ import static java.util.stream.Collectors.toList;
 @AllArgsConstructor
 public class CommentService {
 
-    @Autowired
-    CommentsMapper commentsMapper;
-    @Autowired
-    CommentRepository commentRepository;
-    @Autowired
-    PostRepository postRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    AuthnService authnService;
-    @Autowired
-    MailBuilder mailBuilder;
-    @Autowired
-    EmailService mService;
+    private final CommentsMapper commentsMapper;
+    private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
+    private final UserRepository userRepository;
+    private final AuthnService authnService;
+    private final MailBuilder mailBuilder;
+    private final EmailService mService;
 
     public static final String POST_URL = "";
 

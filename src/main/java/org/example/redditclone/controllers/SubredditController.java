@@ -27,8 +27,7 @@ import org.example.redditclone.services.SubRedditService;
 @Slf4j
 public class SubredditController {
 
-    @Autowired
-    SubRedditService subRedditService;
+    private final SubRedditService subRedditService;
 
     /**
      * Secured end point to create a new subreddit.

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 
 import static org.example.redditclone.static_vars.Paths.*;
 import java.util.List;
@@ -21,10 +22,10 @@ import org.example.redditclone.services.PostService;
 
 @RestController
 @RequestMapping(value = POST_URL)
+@AllArgsConstructor
 public class PostController {
 
-    @Autowired
-    PostService postService;
+    private final PostService postService;
 
     @ApiOperation("Create new post")
     @PostMapping

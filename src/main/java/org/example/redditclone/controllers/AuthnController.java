@@ -1,6 +1,5 @@
 package org.example.redditclone.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 
 import static org.example.redditclone.static_vars.Paths.*;
 
@@ -24,10 +24,10 @@ import org.example.redditclone.services.AuthnService;;
 @Api(value = AUTHN_URL, description = "Handles user registration, e-mail validation, login, logout and refresh tokens")
 @RestController
 @RequestMapping(value = AUTHN_URL)
+@AllArgsConstructor
 public class AuthnController {
 
-    @Autowired
-    AuthnService authnService;
+    private final AuthnService authnService;
     
     /**
      * POST call to create a new user and send verification email

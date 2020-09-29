@@ -9,7 +9,6 @@ import org.example.redditclone.mappers.SubRedditMapperInterface;
 import org.example.redditclone.models.SubReddit;
 import org.example.redditclone.repositories.SubRedditRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +20,8 @@ public class SubRedditService {
     /**
      * AVOID BUSINESS LOGIC IN CONTROLLERS!!
      */
-
-    @Autowired
-    private SubRedditRepository subRedditRepository;
-    @Autowired
-    private SubRedditMapperInterface subRedditMapperInterface;
+    private final  SubRedditRepository subRedditRepository;
+    private final  SubRedditMapperInterface subRedditMapperInterface;
 
     @Transactional // relational dB: this garantee consistence
     public SubRedditData save(SubRedditData subRedditData) {
