@@ -11,6 +11,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface PostMapper {
+    //TODO: Something is wrong here
 
     /**
      * Create a new post from post request object.
@@ -19,8 +20,6 @@ public interface PostMapper {
      * @param user
      * @return new Post.
      */
-    @Mapping(target = "subreddit", source = "subreddit")
-    @Mapping(target = "user", source = "user")
     @Mapping(target = "description", source = "postRequest.description")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     Post map(PostRequest postRequest, SubReddit subReddit, User user);
@@ -30,11 +29,11 @@ public interface PostMapper {
      * @param post object
      * @return post response object
      */
-    @Mapping(target = "postName", source = "postName")
+    @Mapping(target = "postName", source = "postTitle")
     @Mapping(target = "url", source = "url")
     @Mapping(target = "id", source = "postId")
     @Mapping(target = "description", source = "description")
-    @Mapping(target = "subredditName", source = "subreddit.name")
+    @Mapping(target = "subredditName", source = "subReddit.name")
     @Mapping(target = "userName", source = "user.username")
     PostResponse mapToData(Post post);
 }

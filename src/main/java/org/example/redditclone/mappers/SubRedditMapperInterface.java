@@ -5,15 +5,16 @@ import java.util.List;
 import org.example.redditclone.data_transfer_objects.SubRedditData;
 import org.example.redditclone.models.Post;
 import org.example.redditclone.models.SubReddit;
+
 import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.MapperConfig;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
  * this interface is a Mapstruct Mapper and Spring should identify 
  * it as a component and should be able to inject it into other components
  */
-@MapperConfig(componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface SubRedditMapperInterface {
 
     /**
@@ -24,7 +25,7 @@ public interface SubRedditMapperInterface {
      * @param subReddit
      * @return sub reddit DTO
      */
-    @Mapping(target = "numberOfPosts", expression = "java(mapPosts(subreddit.getPosts()))")
+    @Mapping(target = "numberOfPosts", expression = "java(mapPosts(subReddit.getPosts()))")
     SubRedditData mapSubRedditToData(SubReddit subReddit);
     
     default int mapPosts(List<Post> numberOfPosts) {

@@ -15,7 +15,6 @@ import org.example.redditclone.repositories.PostRepository;
 import org.example.redditclone.repositories.UserRepository;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 
@@ -76,7 +75,6 @@ public class CommentService {
      * @param userName
      * @return
      */
-    @Transactional(readOnly = true)
     public List<CommentsDto> getAllCommentsByUser(final String userName) {
         final User user = userRepository.findByUsername(userName)
                 .orElseThrow(() -> new UserNotFoundException(String.format("User %s not found", userName)));
@@ -89,7 +87,6 @@ public class CommentService {
      * @param id
      * @return
      */
-    @Transactional(readOnly = true)
     public List<CommentsDto> getAllCommentsByPost(final long id) {
         final Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostNotFoundException(String.format("Post %s not found", id)));

@@ -87,7 +87,7 @@ public class PostService {
     public List<PostResponse> getPostsBySubReddit(long id) {
         SubReddit sr = subRedditRepository.findById(id)
                 .orElseThrow(() -> new SubRedditNotFoundException(String.format("Subreddit %d not found", id)));
-        List<Post> posts = postRepository.findAllBySubreddit(sr.getName());
+        List<Post> posts = postRepository.findAllBySubReddit(sr.getName());
         return posts.stream().map(postMapper::mapToData).collect(toList());
     }
 }

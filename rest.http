@@ -39,17 +39,29 @@ Content-Type: application/json
 ###
 POST http://localhost:8080/api/subreddit/ HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJWaW5pc3NhbyJ9.XdUBVYZIsuo5cE9ezHT0hmiZvSAcbPQiUEQ-1snnk4YRg61Z-qFKnqG6x8T3qYfBIYwCzMWACOUMHLOgJmUIdCaKg6PC0ynBsN898qhfZ2Gp2hnoH__IXgTwE8uamg7xN_LSw3zfmdFQP9WfplkG_RIMt1pZdNujmXERaareuvfz8M1j8VMqjsGq-YJs-sDVHi-fpxQtt0SAlcBp6w5ueef7gl0qPM7VzjFSJuj1SpOarohwWJfpYTgoCJxCxivO-UjhZCXYBZM5agUM4vwPKaIZmpEcjLmUYulVPA8zZcW4ukw21b0WZqWk2J_vCOWky7CHfVwdkMX2v9KLKhDH5w"
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJWaW5pc3NhbyJ9.XdUBVYZIsuo5cE9ezHT0hmiZvSAcbPQiUEQ-1snnk4YRg61Z-qFKnqG6x8T3qYfBIYwCzMWACOUMHLOgJmUIdCaKg6PC0ynBsN898qhfZ2Gp2hnoH__IXgTwE8uamg7xN_LSw3zfmdFQP9WfplkG_RIMt1pZdNujmXERaareuvfz8M1j8VMqjsGq-YJs-sDVHi-fpxQtt0SAlcBp6w5ueef7gl0qPM7VzjFSJuj1SpOarohwWJfpYTgoCJxCxivO-UjhZCXYBZM5agUM4vwPKaIZmpEcjLmUYulVPA8zZcW4ukw21b0WZqWk2J_vCOWky7CHfVwdkMX2v9KLKhDH5w
 
 {
-    "name": "Second SubReddit Uhull",
-    "description": "This is my second subreddit!!"
+    "name": "Fourth d SubReddit Uhull",
+    "description": "This is my 4 subreddit!!"
 }
 
 ###
-GET http://localhost:8080/api/subreddit/5 HTTP/1.1
+GET http://localhost:8080/api/subreddit/ HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJWaW5pc3NhbyJ9.XdUBVYZIsuo5cE9ezHT0hmiZvSAcbPQiUEQ-1snnk4YRg61Z-qFKnqG6x8T3qYfBIYwCzMWACOUMHLOgJmUIdCaKg6PC0ynBsN898qhfZ2Gp2hnoH__IXgTwE8uamg7xN_LSw3zfmdFQP9WfplkG_RIMt1pZdNujmXERaareuvfz8M1j8VMqjsGq-YJs-sDVHi-fpxQtt0SAlcBp6w5ueef7gl0qPM7VzjFSJuj1SpOarohwWJfpYTgoCJxCxivO-UjhZCXYBZM5agUM4vwPKaIZmpEcjLmUYulVPA8zZcW4ukw21b0WZqWk2J_vCOWky7CHfVwdkMX2v9KLKhDH5w"
 
 ###
-GET http://localhost:8080/api/subreddit/2 HTTP/1.1
+POST http://localhost:8080/api/post/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJWaW5pc3NhbyJ9.XdUBVYZIsuo5cE9ezHT0hmiZvSAcbPQiUEQ-1snnk4YRg61Z-qFKnqG6x8T3qYfBIYwCzMWACOUMHLOgJmUIdCaKg6PC0ynBsN898qhfZ2Gp2hnoH__IXgTwE8uamg7xN_LSw3zfmdFQP9WfplkG_RIMt1pZdNujmXERaareuvfz8M1j8VMqjsGq-YJs-sDVHi-fpxQtt0SAlcBp6w5ueef7gl0qPM7VzjFSJuj1SpOarohwWJfpYTgoCJxCxivO-UjhZCXYBZM5agUM4vwPKaIZmpEcjLmUYulVPA8zZcW4ukw21b0WZqWk2J_vCOWky7CHfVwdkMX2v9KLKhDH5w
+
+{
+    "postName": "First post",
+    "url": "www.google.com",
+    "description": "This is my first post!!",
+    "subredditName": "Third SubReddit Uhull"
+}
+
+###
+GET http://localhost:8080/api/post/ HTTP/1.1

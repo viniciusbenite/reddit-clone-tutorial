@@ -20,9 +20,9 @@ public interface CommentsMapper {
      * @param post
      * @return Comment object
      */
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "post.postId", ignore = true)
     @Mapping(target = "body", source = "commentsDto.body")
-    @Mapping(target = "createdOn", expression = JAVA_JAVA_TIME_INSTANT_NOW)
+    @Mapping(target = "createdDate", expression = JAVA_JAVA_TIME_INSTANT_NOW)
     @Mapping(target = "post", source = "post")
     @Mapping(target = "user", source = "user")
     Comment map(CommentsDto commentsDto, User user, Post post);
@@ -36,6 +36,6 @@ public interface CommentsMapper {
     @Mapping(target = "body", source = "body")
     @Mapping(target = "postId", expression = "java(comment.getPost().getPostId())")
     @Mapping(target = "user", expression = "java(comment.getUser().getUsername())")
-    @Mapping(target = "createdOn", expression = JAVA_JAVA_TIME_INSTANT_NOW)
+    @Mapping(target = "createdDate", expression = JAVA_JAVA_TIME_INSTANT_NOW)
     CommentsDto mapToDto(Comment comment); 
 }

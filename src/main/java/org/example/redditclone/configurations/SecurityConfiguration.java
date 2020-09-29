@@ -34,16 +34,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        //TODO: fix this!
         httpSecurity.cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**")
+                .antMatchers("/api/authn/**")
                 .permitAll()
                 .antMatchers(HttpMethod.GET, "/api/subreddit")
                 .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/posts/")
+                .antMatchers(HttpMethod.GET, "/api/post/")
                 .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/posts/**")
+                .antMatchers(HttpMethod.GET, "/api/post/**")
                 .permitAll()
                 .antMatchers("/v2/api-docs",
                         "/configuration/ui",

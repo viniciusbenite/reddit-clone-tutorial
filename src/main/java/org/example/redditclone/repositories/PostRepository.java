@@ -12,6 +12,6 @@ import org.example.redditclone.models.Post;
 public interface PostRepository extends JpaRepository<Post, Long>{
 
     Optional<Post> findByUser(String user);
-    List<Post> findAllBySubreddit(String name);
+    List<Post> findAllBySubReddit(String name);
     
 }
